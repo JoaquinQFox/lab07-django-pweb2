@@ -7,10 +7,16 @@ def index(request):
     return render(request, "index.html", {'dests': dests})
 
 def lista_destinos(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     destinos = Destination.objects.all().order_by('name')
     return render(request, "lista_destinos.html", {'destinos': destinos})
 
 def crear_destino(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     if request.method == 'POST':
         name = request.POST['name']
         desc = request.POST['desc']
@@ -33,6 +39,9 @@ def crear_destino(request):
         return render(request, 'crear_destino.html')
 
 def editar_destino(request, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     destino = Destination.objects.get(id=id)
 
     if request.method == 'POST':
@@ -52,6 +61,9 @@ def editar_destino(request, id):
         return render(request, 'editar_destino.html', {'destino': destino})
 
 def eliminar_destino(request, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     destino = Destination.objects.get(id=id)
 
     if request.method == 'POST':
@@ -63,5 +75,3 @@ def eliminar_destino(request, id):
 
     else:
         return render(request, 'eliminar_destino.html', {'destino': destino})
-        
-
