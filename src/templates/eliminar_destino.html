@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar eliminación</title>
+</head>
+<body>
+    <h1>¿Estás seguro que quieres eliminar este destino?</h1>
+    <h2>{{ destino.name }}</h2>
+    <p>{{ destino.desc }}</p>
+    {% if destino.img %}
+        <img src="{{ destino.img.url }}" alt="{{ destino.name }}">
+    {% endif %}
+
+    <form action="{% url 'eliminar_destino' destino.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, eliminar</button>
+    </form>
+</body>
+</html>
