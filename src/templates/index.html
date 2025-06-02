@@ -38,11 +38,11 @@
                                     {% if user.is_authenticated %}
                                     <li>Hello, {{user.first_name}}</li>
                                     <li><a href="accounts/logout">Logout</a></li>
+                                    <li><a href="{% url 'lista_destinos' %}">Lista destinos</a></li>
                                     {% else %}
 									<li><a href="accounts/register">Register</a></li>
                                     <li><a href="accounts/login">Login</a></li>
                                     {% endif %}
-                                    <li><a href="{% url 'lista_destinos' %}">Login</a></li>
 								</ul>
 							</nav>
 							<div class="header_phone ml-auto">Call us: 00-56 445 678 33</div>
