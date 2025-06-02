@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinos</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 10px 5px;
+        }
+
+        img {
+            width: 10em;
+            height: 10em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Destinos turísticos</h1>
+    <a href="{% url 'crear_destino' %}">Añadir nuevo destino</a>
+
+    <table>
+        <thead>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>En oferta</th>
+            <th>Imagen</th>
+            <th>Opciones</th>
+        </thead>
+        <tbody>
+            {% for destino in destinos %}
+            <tr>
+                <td>{{ destino.name }}</td>
+                <td>{{ destino.desc }}</td>
+                <td>{{ destino.price }}</td>
+                <td>
+                    {% if destino.offer %}
+                    Sí
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
+                <td>
+                    <img src="{{ destino.img.url }}" alt="Imagen">
+                </td>
+                
+                <td>
+                    <a href="{% url 'editar_destino' destino.id %}">Editar</a>
+                    <a href="{% url 'eliminar' destino.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
