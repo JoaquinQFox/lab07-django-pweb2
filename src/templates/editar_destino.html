@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Destino</title>
+    <style>
+        img {
+            width: 10em;
+            height: 10em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Crear Destino Turistico</h1>
+    <form action="{% url 'editar_destino' destino.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Nombre:</label><br>
+        <input type="text" name="name" value="{{ destino.name }}"><br>
+
+        <label>Descripción:</label><br>
+        <textarea name="desc">{{ destino.desc }}</textarea><br>
+
+        <label>Precio:</label><br>
+        <input type="number" name="price" value="{{ destino.price }}"><br>
+
+        <label>¿Tiene oferta?</label><br>
+        <input type="checkbox" name="offer" {% if destino.offer %}checked{% endif %}><br>
+
+        <label>Imagen actual:</label><br>
+
+        {% if destino.img %}
+            <img src="{{ destino.img.url }}" width="100"><br>
+        {% endif %}
+
+        <label>Subir nueva imagen (opcional):</label><br>
+        <input type="file" name="img"><br><br>
+
+        <input type="submit">
+    </form>
+</body>
+</html>
