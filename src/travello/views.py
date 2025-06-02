@@ -41,6 +41,8 @@ def editar_destino(request, id):
         destino.price = request.POST['price']
         destino.offer = 'offer' in request.POST
         if 'img' in request.FILES:
+            if destino.img:
+                destino.img.delete(save=False)
             destino.img = request.FILES.get('img')
 
         destino.save()
@@ -49,5 +51,17 @@ def editar_destino(request, id):
     else:
         return render(request, 'editar_destino.html', {'destino': destino})
 
-def eliminar_destino(requets):
-    pass
+def eliminar_destino(request, id):
+    destino = Destination.objects.get(id=id)
+
+    if request.method == 'POST':
+        if destino.img:
+            destino.img.delete(save=False)
+
+        destino.delete()
+        return redirect('lista_destinos')
+
+    else:
+        return render(request, 'eliminar_destino.html', {'destino': destino})
+        
+
